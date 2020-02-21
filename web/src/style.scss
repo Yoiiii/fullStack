@@ -1,0 +1,106 @@
+//使用助手工具类定义好class
+//reset
+* {
+  box-sizing: border-box;
+
+  outline: none;
+
+}
+html {
+
+  font-size: 13px;
+
+}
+body {
+
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  line-height: 1.2em;
+
+  background: #f1f1f1;
+
+}
+a{
+
+  color: #999999;
+
+}
+
+//color
+$colors:(
+  "primary":#db9e3f,
+  "white":#fff,
+  "light":#f9f9f9,
+  "gary":#999,
+  "dark-1":#343440,
+  "dark":#222,
+  "black":#000,
+);
+@each $colorKey,$color in $colors {
+  .text-#{$colorKey}{
+    color: $color;
+  }
+  .bg-#{$colorKey}{
+    background-color: $color;
+  }
+}
+
+//text
+@each $var in (left,center,right) {
+  .text-#{$var}{
+    text-align: $var;
+  }
+}
+
+//font size
+$base-font-size:1rem;
+$font-size:(
+  xs:0.7692,//10px
+  sm:0.9231,//12px
+  md:1,//13px
+  lg:1.0769,//14px
+  xl:1.2308,//16px
+  );
+@each $sizeKey,$size in $font-size {
+  .fs-#{$sizeKey}{
+    font-size: $size * $base-font-size;
+  }
+}
+
+//flex
+.d-flex{
+  display: flex;
+}
+.flix-column{
+  flex-direction: column;
+}
+$flex-jc:(
+  start:flex-start,
+  end:flex-end,
+  center:center,
+  between:space-between,
+  around:space-around,
+);
+
+@each $Key,$value in $flex-jc {
+  .jc-#{Key}{
+    justify-content: $value;
+  }
+}
+
+$flex-ai:(
+  start:flex-start,
+  end:flex-end,
+  center:center,
+  stretch:stretch,
+);
+@each $Key,$value in $flex-ai {
+  .ai-#{Key}{
+    align-items: $value;
+  }
+}
+.flex-grow-1{
+  flex-grow:1
+}
