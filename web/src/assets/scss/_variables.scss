@@ -3,12 +3,14 @@ $colors: (
   'info':#4b67af,
   "white": #fff,
   "light": #f9f9f9,
+  'light-1':#d4d9de,
   "gary": #999,
   'gary-1':#666,
   "dark-1": #343440,
   "dark": #222,
   "black": #000
 );
+$border-color:map-get($colors, 'light-1' );
 $base-font-size: 1rem;
 $font-sizes: (
   xxs:0.6154,

@@ -53,6 +53,7 @@ module.exports = app => {
 
   //路由
   app.use('/admin/api/rest/:resource', authMiddleware() ,resourceMiddleware(), router)
+  
 
   //上传
   const upload = multer({ dest: __dirname + '/../../uploads' })
