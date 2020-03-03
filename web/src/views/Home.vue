@@ -28,43 +28,16 @@
       </div>
     </div>
     <!-- end of nav icons -->
-    <m-card icon="cc-menu-circle" title="新闻资讯">
-      <div class="nav jc-between">
-        <div class="nav-item active">
-          <div class="nav-link">热门</div>
+    <m-list-card icon="cc-menu-circle" title="新闻资讯" :categories="newsCats">
+      <template #items="{category}">
+        <div class="py-2 fs-lg" v-for="(news,i) in category.newsList" :key ="i">
+          <span>[{{news.categoryName}}]</span>
+          <span>|</span>
+          <span>{{news.title}}</span>
+          <span>{{news.date}}</span>
         </div>
-        <div class="nav-item">
-          <div class="nav-link">新闻</div>
-        </div>
-        <div class="nav-item">
-          <div class="nav-link">公告</div>
-        </div>
-        <div class="nav-item">
-          <div class="nav-link">活动</div>
-        </div>
-        <div class="nav-item">
-          <div class="nav-link">赛事</div>
-        </div>
-      </div>
-      <swiper class="mt-3">
-        <swiper-slide v-for="m in 5" :key="m">
-          <div class="py-2" v-for="n in 5" :key="n">
-            <span>新闻</span>
-            <span>|</span>
-            <span>2月25日全服不停机更新公告</span>
-            <span>06/02</span>
-          </div>
-        </swiper-slide>
-      </swiper>
-    </m-card>
-    <m-card icon="cc-menu-circle" title="英雄列表"></m-card>
-    <m-card icon="cc-menu-circle" title="精彩视频"></m-card>
-    <m-card icon="cc-menu-circle" title="图文攻略"></m-card>
-    <m-card icon="cc-menu-circle" title="新闻资讯"></m-card>
-    <p>aaaaaaaaaaaaa</p>
-    <p>aaaaaaaaaaaaa</p>
-    <p>aaaaaaaaaaaaa</p>
-    <p>aaaaaaaaaaaaa</p>
+      </template>
+    </m-list-card>
   </div>
 </template>
 <script>
@@ -75,9 +48,20 @@ export default {
         pagination: {
           el: ".pagination-home"
         }
-      }
+      },
+      newsCats:[]
     };
-  }
+  },
+  methods: {
+    async fetchNewsCats(){
+      const res = await this.$http.get('news/list')
+      this.newsCats=res.data
+      console.log(this.newsCats);
+    }
+  },
+  created() {
+    this.fetchNewsCats()
+  },
 };
 </script>
 <style lang="scss">
