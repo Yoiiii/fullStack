@@ -3,12 +3,13 @@
     <div class="nav jc-between">
       <div class="nav-item" :class="{active: active===i}" 
       v-for="(category,i) in categories" :key="i" 
-      @click="active=i">
-        <div class="nav-link">{{categories.name}}</div>
+      @click="$refs.list.swiper.slideTo(i)">
+        <div class="nav-link">{{categories[i].name}}</div>
       </div>
     </div>
-    <swiper class="mt-3">
-      <swiper-slide v-for="(category,i) in categories" :key="i">
+    <swiper ref="list" 
+    @slide-change="()=> active =$refs.list.swiper.realIndex" class="mt-3">
+      <swiper-slide  v-for="(category,i) in categories" :key="i">
           <slot name="items" :category="category"> </slot>
       </swiper-slide>
     </swiper>
