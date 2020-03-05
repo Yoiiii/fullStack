@@ -7,7 +7,7 @@
         <div class="nav-link">{{categories[i].name}}</div>
       </div>
     </div>
-    <swiper ref="list" 
+    <swiper ref="list" :options="{autoHeight :true}"
     @slide-change="()=> active =$refs.list.swiper.realIndex" class="mt-2">
       <swiper-slide  v-for="(category,i) in categories" :key="i">
           <slot name="items" :category="category"> </slot>
