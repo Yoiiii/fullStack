@@ -30,7 +30,17 @@
     <!-- end of nav icons -->
     <m-list-card icon="cc-menu-circle" title="新闻资讯" :categories="newsCats">
       <template #items="{category}">
-        <div class="py-2 fs-lg d-flex" v-for="(news,i) in category.newsList" :key ="i">
+        <div class="py-2 fs-md d-flex" v-for="(news,i) in category.newsList" :key="i">
+          <span class="text-info" style="white-space: nowrap">[{{news.categoryName}}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-grow-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
+          <span class="text-grey-1 fs-sm">{{news.createdAt | date}}</span>
+        </div>
+      </template>
+    </m-list-card>
+    <m-list-card icon="card-hero" title="英雄列表" :categories="newsCats">
+      <template #items="{category}">
+        <div class="py-2 fs-md d-flex" v-for="(news,i) in category.newsList" :key="i">
           <span class="text-info" style="white-space: nowrap">[{{news.categoryName}}]</span>
           <span class="px-2">|</span>
           <span class="flex-grow-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
@@ -41,11 +51,11 @@
   </div>
 </template>
 <script>
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 export default {
-  filters:{
-    date(val){  
-      return dayjs(val).format('MM/DD')
+  filters: {
+    date(val) {
+      return dayjs(val).format("MM/DD");
     }
   },
   data() {
@@ -55,19 +65,19 @@ export default {
           el: ".pagination-home"
         }
       },
-      newsCats:[]
+      newsCats: []
     };
   },
   methods: {
-    async fetchNewsCats(){
-      const res = await this.$http.get('news/list')
-      this.newsCats=res.data
+    async fetchNewsCats() {
+      const res = await this.$http.get("news/list");
+      this.newsCats = res.data;
       console.log(this.newsCats);
     }
   },
   created() {
-    this.fetchNewsCats()
-  },
+    this.fetchNewsCats();
+  }
 };
 </script>
 <style lang="scss">

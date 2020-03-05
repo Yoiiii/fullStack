@@ -8,7 +8,7 @@
       </div>
     </div>
     <swiper ref="list" 
-    @slide-change="()=> active =$refs.list.swiper.realIndex" class="mt-3">
+    @slide-change="()=> active =$refs.list.swiper.realIndex" class="mt-2">
       <swiper-slide  v-for="(category,i) in categories" :key="i">
           <slot name="items" :category="category"> </slot>
       </swiper-slide>
