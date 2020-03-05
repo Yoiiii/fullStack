@@ -38,7 +38,7 @@
         </div>
       </template>
     </m-list-card>
-    <m-list-card icon="card-hero" title="英雄列表" :categories="newsCats">
+    <m-list-card icon="card-hero" title="英雄列表" :categories="newsCats" >
       <template #items="{category}">
         <div class="py-2 fs-md d-flex" v-for="(news,i) in category.newsList" :key="i">
           <span class="text-info" style="white-space: nowrap">[{{news.categoryName}}]</span>
