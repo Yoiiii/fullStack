@@ -21,11 +21,24 @@
           <el-form-item label="头像">
             <el-upload
               class="avatar-uploader"
-              :action="$http.defaults.baseURL + '/upload'"
+              :action="mixinUploadUrl"
               :show-file-list="false"
-              :on-success="afterUpload"
+              :on-success="res=>$set(model,'avatar',res.url)"
+              :headers="mixinGetAuthHeaders()"
             >
               <img v-if="model.avatar" :src="model.avatar" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="原画">
+            <el-upload
+              class="avatar-uploader"
+              :action="mixinUploadUrl"
+              :show-file-list="false"
+              :on-success="res=>$set(model,'banner',res.url)"
+              :headers="mixinGetAuthHeaders()"
+            >
+              <img v-if="model.banner" :src="model.banner" class="banner" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -91,15 +104,14 @@
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
-              <el-form-item   label="描述">
-                <el-input type="textarea"  v-model="item.description"></el-input>
+              <el-form-item label="描述">
+                <el-input type="textarea" v-model="item.description"></el-input>
               </el-form-item>
-              <el-form-item   label="小提示">
-                <el-input type="textarea"  v-model="item.tips" ></el-input>
+              <el-form-item label="小提示">
+                <el-input type="textarea" v-model="item.tips"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button size="small" type="danger"
-                @click="model.skills.splice(i,1)">删除</el-button>
+                <el-button size="small" type="danger" @click="model.skills.splice(i,1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -155,10 +167,6 @@ export default {
       const res = await this.$http.get(`rest/items`);
       this.items = res.data;
     },
-    afterUpload(res) {
-      //this.$set(this.model,'avatar',res.url)
-      this.model.avatar = res.url;
-    }
     // async fetchParents() {
     //   const res = await this.$http.get(`rest/items`);
     //   this.parents = res.data;
