@@ -12,7 +12,7 @@ Vue.prototype.$http=http
 Vue.mixin({
   computed: {
     mixinUploadUrl(){
-      return this.$http.defaults.baesURL +'/upload'
+      return this.$http.defaults.baseURL +'/upload'
     }
   },
   methods: {
