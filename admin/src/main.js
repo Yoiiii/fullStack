@@ -8,7 +8,6 @@ import './style.css'
 Vue.config.productionTip = false
 Vue.prototype.$http=http
 
-
 Vue.mixin({
   computed: {
     mixinUploadUrl(){
