@@ -11,19 +11,19 @@
 export default {
   name: 'App',
   created () {
-      setTimeout(() => {
-          window.L2Dwidget.init({
-          pluginRootPath: '../public/static/live2dw/',
+          setTimeout(() => {
+      window.L2Dwidget.init({
+          pluginRootPath: 'live2dw/',
           pluginJsPath: 'lib/',
-          pluginModelPath: 'live2d-widget-model-z16/assets/',
+          pluginModelPath: 'live2d-widget-model-shizuku/assets/',
           tagMode: false,
           debug: false,
-          model: { jsonPath: '../public/static/live2dw/live2d-widget-model-z16/assets/z16.model.json' },
-          display: { position: 'right', width: 300, height: 650 },
+          model: { jsonPath: '../live2dw/live2d-widget-model-shizuku/assets/shizuku.model.json' },
+          display: { position: 'right', width: 200, height: 400 },
           mobile: { show: true },
           log: false
           })
-      }, 1000)
+    }, 1000)
   },
 }
 </script>
