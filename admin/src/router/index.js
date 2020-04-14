@@ -21,6 +21,9 @@ import AdList from '../views/AdList.vue'
 import AdminUserEdit from '../views/AdminUserEdit.vue'
 import AdminUserList from '../views/AdminUserList.vue'
 
+import OperatorEdit from '../views/OperatorEdit.vue'
+import OperatorList from '../views/OperatorList.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -58,6 +61,10 @@ const routes = [
       {path:'/admin_users/create',component:AdminUserEdit},
       {path:'/admin_users/list',component:AdminUserList},
       {path:'/admin_users/edit/:id',component:AdminUserEdit,props:true},
+
+      {path:'/operators/create',component:OperatorEdit},
+      {path:'/operators/list',component:OperatorList},
+      {path:'/operators/edit/:id',component:OperatorEdit,props:true},
   ]
   }
 ]

@@ -1,5 +1,5 @@
 module.exports = {
-    outputDir:__dirname+'/../server/public/web',
+    outputDir:__dirname+'/../public/web',
     publicPath: process.env.NODE_ENV === 'production'
       ? '/web/'
       : '/'

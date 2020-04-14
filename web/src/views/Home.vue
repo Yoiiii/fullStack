@@ -1,15 +1,11 @@
 <template>
   <div>
-    <swiper :options="swiperOption" ref="mySwiper" data-swiper-autoplay="2000">
+    <swiper :options="swiperOption" ref="mySwiper" data-swiper-autoplay="2000" >
       <!-- slides -->
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/08072d720562444b230bb472bdb62534.jpeg" />
-      </swiper-slide>
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/e3ce1d42d93eb45414322e3634a04598.jpeg" />
-      </swiper-slide>
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/e38db707a96d8458101c78ecf644e467.jpeg" />
+      <swiper-slide v-for="(item,i) in adCats" :key="i">
+        <a tag="div" :href="item.url">
+          <img class="w-100" :src="item.image" />
+        </a>
       </swiper-slide>
       <!-- Optional controls -->
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
@@ -30,10 +26,13 @@
     <!-- end of nav icons -->
     <m-list-card icon="cc-menu-circle" title="新闻资讯" :categories="newsCats">
       <template #items="{category}">
-        <router-link 
-        tag="div"
-        :to="`/articles/${news._id}`"
-         class="py-2 fs-md d-flex" v-for="(news,i) in category.newsList" :key="i">
+        <router-link
+          tag="div"
+          :to="`/articles/${news._id}`"
+          class="py-2 fs-md d-flex"
+          v-for="(news,i) in category.newsList"
+          :key="i"
+        >
           <span class="text-info" style="white-space: nowrap">[{{news.categoryName}}]</span>
           <span class="px-2">|</span>
           <span class="flex-grow-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
@@ -45,7 +44,14 @@
     <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin: 0 -0.5rem">
-          <router-link tag="div" :to="`/heroes/${hero._id}`" class="p-2 text-center" style="width:20%" v-for="(hero,i) in category.heroList" :key="i">
+          <router-link
+            tag="div"
+            :to="`/heroes/${hero._id}`"
+            class="p-2 text-center"
+            style="width:20%"
+            v-for="(hero,i) in category.heroList"
+            :key="i"
+          >
             <img class="w-100" :src="hero.avatar" alt />
             <div>{{hero.name}}</div>
           </router-link>
@@ -70,7 +76,8 @@ export default {
         }
       },
       newsCats: [],
-      heroCats: []
+      heroCats: [],
+      adCats:[],
     };
   },
   methods: {
@@ -81,11 +88,18 @@ export default {
     async fetchHeroCats() {
       const res = await this.$http.get("heroes/list");
       this.heroCats = res.data;
+      console.log(this.heroCats);
+    },
+    async fetchAds() {
+      const res = await this.$http.get("ads/list");
+      this.adCats = res.data[0].items;
+      console.log(this.adCats);
     }
   },
   created() {
     this.fetchNewsCats();
     this.fetchHeroCats();
+    this.fetchAds();
   }
 };
 </script>
