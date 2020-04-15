@@ -1,6 +1,15 @@
 <template>
   <div>
     <h1>分类列表</h1>
+    <el-select
+      v-model="value"
+      clearable
+      @change="handleChange"
+      @clear="fetch"
+      placeholder="请选择上级分类"
+    >
+      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+    </el-select>
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="230"></el-table-column>
       <el-table-column prop="parent.name" label="上级分类"></el-table-column>
@@ -23,13 +32,61 @@
 export default {
   data() {
     return {
-      items: []
+      items: [],
+      options: [],
+      value: ""
     };
   },
   methods: {
     async fetch() {
+      //获取所有分类列表
       const res = await this.$http.get("rest/categories");
-      this.items = res.data;
+      await this.catFetch(res.data);
+      if (this.value) {
+        this.handleChange(this.value);
+      } else {
+        this.items = res.data;
+      }
+    },
+    async catFetch(data) {
+      let cats = [];
+      //第一层分类
+      for (let item of data) {
+        if (!item.parent) {
+          let cat = {
+            value: item.name,
+            text: item.name
+          };
+          cats.push(cat);
+        }
+      }
+      //第二层分类
+      // for (let two of cats) {
+      //   //console.log('two',two);
+      //   for (let item of this.items) {
+      //     if (item.parent) {
+      //       if (item.parent.name == two.label) {
+      //         let c = {
+      //           value: item._id,
+      //           label: item.name
+      //         };
+      //         two.children.push(c);
+      //       }
+      //     }
+      //   }
+      // }
+      this.options = cats;
+    },
+    async handleChange(value) {
+      //选择分类事件
+      const res = await this.$http.get("rest/categories");
+      let newItems =res.data.filter((item)=>{
+        console.log(item);
+        if(item.parent){
+          return item.parent.name ==value
+        }
+      })
+      this.items=newItems;
     },
     async remove(row) {
       this.$confirm(`是否要确定删除分类"${row.name}"?`, "提示", {
